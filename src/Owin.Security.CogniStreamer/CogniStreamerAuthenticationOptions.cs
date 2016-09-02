@@ -90,10 +90,10 @@ namespace Owin.Security.CogniStreamer
         public ISecureDataFormat<AuthenticationProperties> StateDataFormat { get; set; }
 
         public CogniStreamerAuthenticationOptions()
-            : base(Constants.DefaultAuthenticationType)
+            : base(CogniStreamerAuthenticationDefaults.AuthenticationType)
         {
-            Caption = Constants.DefaultAuthenticationType;
-            CallbackPath = new PathString(Constants.DefaultCallbackPath);
+            Caption = CogniStreamerAuthenticationDefaults.AuthenticationType;
+            CallbackPath = new PathString(CogniStreamerAuthenticationDefaults.CallbackPath);
             AuthenticationMode = AuthenticationMode.Passive;
             Scope = new List<string>
             {

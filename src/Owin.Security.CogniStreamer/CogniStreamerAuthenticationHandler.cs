@@ -21,6 +21,7 @@ namespace Owin.Security.CogniStreamer
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
         private static readonly PathString AuthorizeEndpoint = new PathString("/oauth2/authorize");
         private static readonly PathString TokenEndpoint = new PathString("/oauth2/token");
+        private static readonly PathString SignOutEndpoint = new PathString("/account/logout");
         private static readonly PathString UserInfoEndpoint = new PathString("/api/v1.1/m/profile");
 
         private readonly ILogger logger;
@@ -154,11 +155,6 @@ namespace Owin.Security.CogniStreamer
 
         public override async Task<bool> InvokeAsync()
         {
-            return await this.InvokeReplyPathAsync();
-        }
-
-        private async Task<bool> InvokeReplyPathAsync()
-        {
             if (this.Options.CallbackPath.HasValue && this.Options.CallbackPath == this.Request.Path)
             {
                 var ticket = await this.AuthenticateAsync();
@@ -200,6 +196,27 @@ namespace Owin.Security.CogniStreamer
             }
 
             return false;
+        }
+
+        protected override Task ApplyResponseGrantAsync()
+        {
+            if (this.Context.Authentication.AuthenticationResponseRevoke != null &&
+                this.Context.Authentication.AuthenticationResponseRevoke.AuthenticationTypes.Contains(this.Options.AuthenticationType))
+            {
+                string redirectUri =
+                    this.Request.Scheme +
+                    Uri.SchemeDelimiter +
+                    this.Request.Host +
+                    this.Request.PathBase;
+
+                string signOutEndpoint =
+                    new Uri(this.Options.PortalBaseUrl, SignOutEndpoint.Value).ToString() +
+                    "?returnurl=" + Uri.EscapeDataString(redirectUri);
+
+                this.Response.Redirect(signOutEndpoint);
+            }
+
+            return Task.FromResult<object>(null);
         }
 
         private async Task<TokenResponse> RequestToken(string code, string redirectUri)
