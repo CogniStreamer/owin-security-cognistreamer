@@ -133,6 +133,17 @@ namespace Owin.Security.CogniStreamer.Tests
             }
         }
 
+        [Test]
+        public async Task CogniStreamerAuthenticationMiddleware_SignOut_ShouldRedirect()
+        {
+            using (var server = this.CreateTestServer(this.options))
+            {
+                var response = await server.HttpClient.GetAsync("/signout");
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Redirect));
+                Assert.That(response.Headers.Location, Is.EqualTo(new Uri("https://portalbase.com/account/logout?returnurl=http:%2F%2Flocalhost")));
+            }
+        }
+
         private TestServer CreateTestServer(CogniStreamerAuthenticationOptions options)
         {
             return TestServer.Create(app =>
@@ -169,6 +180,10 @@ namespace Owin.Security.CogniStreamer.Tests
                                 {
                                     ctx.Response.StatusCode = 401;
                                 }
+                            }
+                            else if (ctx.Request.Path.Equals(new PathString("/signout")))
+                            {
+                                ctx.Authentication.SignOut(CogniStreamerAuthenticationDefaults.AuthenticationType);
                             }
                             else
                             {
