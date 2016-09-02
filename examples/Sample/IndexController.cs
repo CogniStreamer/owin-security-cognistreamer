@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Security.Claims;
+using System.Web.Http;
 
 namespace Sample
 {
@@ -9,7 +10,8 @@ namespace Sample
         [Route("")]
         public string Get()
         {
-            return "Authenticated!";
+            var identity = this.User.Identity as ClaimsIdentity;
+            return $"Authenticated as {identity.FindFirst(ClaimTypes.GivenName).Value} {identity.FindFirst(ClaimTypes.Surname).Value}!";
         }
     }
 }
