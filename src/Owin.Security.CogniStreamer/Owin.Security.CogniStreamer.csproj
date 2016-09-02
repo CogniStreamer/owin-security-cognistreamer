@@ -71,7 +71,7 @@
     <Compile Include="CogniStreamerAuthenticationHandler.cs" />
     <Compile Include="CogniStreamerAuthenticationMiddleware.cs" />
     <Compile Include="CogniStreamerAuthenticationOptions.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="CogniStreamerAuthenticationDefaults.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\CogniStreamerApplyRedirectContext.cs" />
     <Compile Include="Provider\CogniStreamerAuthenticatedContext.cs" />
