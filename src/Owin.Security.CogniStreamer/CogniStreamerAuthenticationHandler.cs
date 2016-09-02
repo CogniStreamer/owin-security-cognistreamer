@@ -154,11 +154,6 @@ namespace Owin.Security.CogniStreamer
 
         public override async Task<bool> InvokeAsync()
         {
-            return await this.InvokeReplyPathAsync();
-        }
-
-        private async Task<bool> InvokeReplyPathAsync()
-        {
             if (this.Options.CallbackPath.HasValue && this.Options.CallbackPath == this.Request.Path)
             {
                 var ticket = await this.AuthenticateAsync();
