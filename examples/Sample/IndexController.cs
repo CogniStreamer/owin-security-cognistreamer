@@ -7,6 +7,7 @@ namespace Sample
     [RoutePrefix("")]
     public class IndexController : ApiController
     {
+        [HttpGet]
         [Route("")]
         public string Get()
         {
