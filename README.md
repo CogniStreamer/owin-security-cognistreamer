@@ -1,6 +1,6 @@
 # Owin.Security.CogniStreamer
 
-[![Build status](https://ci.appveyor.com/api/projects/status/90egsdh2x1gfeojk/branch/master?svg=true)](https://ci.appveyor.com/project/huysentruitw/owin-security-cognistreamer/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/8lgj07ja9oodqfmo/branch/master?svg=true)](https://ci.appveyor.com/project/CogniStreamer/owin-security-cognistreamer/branch/master)
 
 OWIN middleware for authenticating users using a CogniStreamer portal.
 
