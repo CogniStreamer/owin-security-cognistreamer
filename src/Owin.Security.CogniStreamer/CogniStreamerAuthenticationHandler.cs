@@ -21,7 +21,7 @@ namespace Owin.Security.CogniStreamer
         private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
         private static readonly PathString AuthorizeEndpoint = new PathString("/oauth2/authorize");
         private static readonly PathString TokenEndpoint = new PathString("/oauth2/token");
-        private static readonly PathString SignOutEndpoint = new PathString("/account/logout");
+        private static readonly PathString SignOutEndpoint = new PathString("/logout");
         private static readonly PathString UserInfoEndpoint = new PathString("/api/v1.1/m/profile");
 
         private readonly ILogger logger;
