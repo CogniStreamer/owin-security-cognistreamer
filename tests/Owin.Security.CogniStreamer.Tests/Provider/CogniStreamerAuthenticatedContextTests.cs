@@ -16,8 +16,10 @@ namespace Owin.Security.CogniStreamer.Tests.Provider
             var owinContext = new Mock<IOwinContext>().Object;
             var accessToken = Guid.NewGuid().ToString("N");
             var user = JObject.Parse("{ a: 12345 }");
-            var context = new CogniStreamerAuthenticatedContext(owinContext, user, accessToken, "1400");
+            var options = new CogniStreamerAuthenticationOptions();
+            var context = new CogniStreamerAuthenticatedContext(owinContext, options, user, accessToken, "1400");
             Assert.That(context.OwinContext, Is.EqualTo(owinContext));
+            Assert.That(context.Options, Is.EqualTo(options));
             Assert.That(context.User["a"].Value<int>(), Is.EqualTo(12345));
             Assert.That(context.AccessToken, Is.EqualTo(accessToken));
             Assert.That(context.ExpiresIn, Is.EqualTo(TimeSpan.FromSeconds(1400)));
@@ -34,7 +36,8 @@ namespace Owin.Security.CogniStreamer.Tests.Provider
                 lastName: 'Cash',
                 email: 'cashj@walktheline.com'
             }");
-            var context = new CogniStreamerAuthenticatedContext(owinContext, user, string.Empty, "3600");
+            var options = new CogniStreamerAuthenticationOptions();
+            var context = new CogniStreamerAuthenticatedContext(owinContext, options, user, string.Empty, "3600");
             Assert.That(context.Id, Is.EqualTo(new Guid("dcec99ad-28e1-4194-a4e0-f22148963cc5")));
             Assert.That(context.Username, Is.EqualTo("cashj"));
             Assert.That(context.FirstName, Is.EqualTo("Johnny"));

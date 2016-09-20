@@ -11,10 +11,11 @@ namespace Owin.Security.CogniStreamer.Provider
     /// <summary>
     /// Contains information about the login session as well as the user <see cref="System.Security.Claims.ClaimsIdentity"/>.
     /// </summary>
-    public class CogniStreamerAuthenticatedContext : BaseContext
+    public class CogniStreamerAuthenticatedContext : BaseContext<CogniStreamerAuthenticationOptions>
     {
-        public CogniStreamerAuthenticatedContext(IOwinContext context, JObject user, string accessToken, string expires)
-            : base(context)
+        public CogniStreamerAuthenticatedContext(IOwinContext context, CogniStreamerAuthenticationOptions options,
+            JObject user, string accessToken, string expires)
+            : base(context, options)
         {
             this.User = user;
             this.AccessToken = accessToken;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -30,7 +29,8 @@ namespace Owin.Security.CogniStreamer.Tests.Provider
         [Test]
         public void CogniStreamerAuthenticationProvider_DefaultOnAuthenticatedImplementation_ShouldNotThrowException()
         {
-            var context = new CogniStreamerAuthenticatedContext(this.owinContextMock.Object, this.user, string.Empty, string.Empty);
+            var options = new CogniStreamerAuthenticationOptions();
+            var context = new CogniStreamerAuthenticatedContext(this.owinContextMock.Object, options, this.user, string.Empty, string.Empty);
             Assert.That(() => this.providerUnderTest.Authenticated(context), Throws.Nothing);
         }
 
@@ -59,7 +59,8 @@ namespace Owin.Security.CogniStreamer.Tests.Provider
         public void CogniStreamerAuthenticationProvider_CallAuthenticated_ShouldInvokeOnAuthenticated()
         {
             var callbacksMock = new Mock<IProviderCallbacks>();
-            var context = new CogniStreamerAuthenticatedContext(this.owinContextMock.Object, this.user, string.Empty, string.Empty);
+            var options = new CogniStreamerAuthenticationOptions();
+            var context = new CogniStreamerAuthenticatedContext(this.owinContextMock.Object, options, this.user, string.Empty, string.Empty);
             this.providerUnderTest.OnAuthenticated = callbacksMock.Object.OnAuthenticated;
             this.providerUnderTest.Authenticated(context);
             callbacksMock.Verify(x => x.OnAuthenticated(context), Times.Once);

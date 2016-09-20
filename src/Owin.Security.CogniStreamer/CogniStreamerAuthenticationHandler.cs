@@ -74,7 +74,7 @@ namespace Owin.Security.CogniStreamer
 
                 var user = await this.RequestUserInfo(tokenResponse.AccessToken);
 
-                var context = new CogniStreamerAuthenticatedContext(this.Context, user, tokenResponse.AccessToken, tokenResponse.ExpiresIn);
+                var context = new CogniStreamerAuthenticatedContext(this.Context, this.Options, user, tokenResponse.AccessToken, tokenResponse.ExpiresIn);
                 context.Identity = new ClaimsIdentity(this.Options.AuthenticationType, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
                 if (context.Id.HasValue)
