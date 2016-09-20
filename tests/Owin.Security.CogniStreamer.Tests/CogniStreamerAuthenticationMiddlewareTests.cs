@@ -140,7 +140,7 @@ namespace Owin.Security.CogniStreamer.Tests
             {
                 var response = await server.HttpClient.GetAsync("/signout");
                 Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Redirect));
-                Assert.That(response.Headers.Location, Is.EqualTo(new Uri("https://portalbase.com/account/logout?returnurl=http:%2F%2Flocalhost")));
+                Assert.That(response.Headers.Location, Is.EqualTo(new Uri("https://portalbase.com/logout?returnurl=http:%2F%2Flocalhost")));
             }
         }
 
